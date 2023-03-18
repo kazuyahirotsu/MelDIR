@@ -5,7 +5,7 @@ import { Data, Chart } from './Chart';
 
 const useStyles = createStyles((theme) => ({
   root: {
-    width: 'auto',
+    width: '100%',
     height: '100%',
     padding: `${theme.spacing.md}px`,
     gap: `${theme.spacing.md}px`,
@@ -94,6 +94,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
                   : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg'
               }
               height={120}
+              width={180}
               alt="steak"
               className={classes.image}
             />

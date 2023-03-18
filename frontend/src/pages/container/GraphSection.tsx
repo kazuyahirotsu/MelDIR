@@ -6,7 +6,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { db } from '../../lib/firebase';
 import { dummyData } from '../components/Chart';
@@ -57,12 +57,20 @@ export const GraphSection: FC = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
-  const qMainData = query(collection(db, 'mainData'));
-  const unsubscribeMainData = onSnapshot(qMainData, (querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      console.log('Current data: ', doc.data());
+
+
+  const [tempPercentage, setTempPercentage] = useState<number[]>([]);
+
+  useEffect(() => {
+    const qMainData = query(collection(db, 'mainData'));
+    onSnapshot(qMainData, (querySnapshot) => {
+      setTempPercentage([]);
+      querySnapshot.forEach((doc) => {
+        setTempPercentage((prev) => [...prev, Number(doc.data().tempDelta)]);
+      });
     });
-  });
+  }, []);
+  console.log({ tempPercentage });
 
   // this listens the time-series temp data documentation of collection of tempCrop1
   const start = new Date('2023-03-01T00:00:00.000z');
@@ -74,17 +82,17 @@ export const GraphSection: FC = () => {
     where('time', '<=', end),
   );
   const tempData1: any[][] = [];
-  const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-    tempData1.splice(0);
-    querySnapshot.forEach((doc) => {
-      tempData1.push([doc.data().time, doc.data().temp]);
-    });
-    console.log(tempData1);
-  });
+  //   const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
+  //     tempData1.splice(0);
+  //     querySnapshot.forEach((doc) => {
+  //       tempData1.push([doc.data().time, doc.data().temp]);
+  //     });
+  //     // console.log(tempData1);
+  //   });
 
   const crop1Data: GraphCardProps = {
     cropIndex: 1,
-    tempPercentage: 30,
+    tempPercentage: tempPercentage[0],
     tableNumber: 4,
     menuImage:
       'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
@@ -93,7 +101,7 @@ export const GraphSection: FC = () => {
 
   const crop2Data: GraphCardProps = {
     cropIndex: 2,
-    tempPercentage: 20,
+    tempPercentage: tempPercentage[1],
     tableNumber: 1,
     menuImage:
       'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
@@ -102,7 +110,7 @@ export const GraphSection: FC = () => {
 
   const crop3Data: GraphCardProps = {
     cropIndex: 3,
-    tempPercentage: 30,
+    tempPercentage: tempPercentage[2],
     tableNumber: 2,
     menuImage:
       'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
@@ -111,7 +119,7 @@ export const GraphSection: FC = () => {
 
   const crop4Data: GraphCardProps = {
     cropIndex: 4,
-    tempPercentage: 10,
+    tempPercentage: tempPercentage[3],
     tableNumber: 4,
     menuImage:
       'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
