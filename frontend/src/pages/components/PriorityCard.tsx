@@ -38,6 +38,12 @@ const useStyles = createStyles((theme) => ({
   tableBox: {
     display: 'flex',
     flexDirection: 'column',
+    textAlign: 'center',
+    gap: 0,
+  },
+  imageBox: {
+    display: 'flex',
+    flexDirection: 'column',
     gap: 0,
   },
   image: {
@@ -53,11 +59,17 @@ export const PriorityCard: FC = () => {
     <div className={classes.root}>
       <div className={classes.right}>
         <div className={classes.tableBox}>
-          <Title order={4}>Table</Title>
-          <Title order={1}>5</Title>
+          <Title order={4} color={theme.colors.gray[7]}>
+            Table
+          </Title>
+          <Title order={1} color={theme.colors.blue[7]}>
+            5
+          </Title>
         </div>
-        <div className={classes.tableBox}>
-          <Title order={4}>Menu</Title>
+        <div className={classes.imageBox}>
+          <Title order={4} color={theme.colors.gray[7]}>
+            Menu
+          </Title>
           <img
             src="https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg"
             height={60}
