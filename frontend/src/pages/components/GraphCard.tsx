@@ -5,7 +5,7 @@ import { Data, Chart } from './Chart';
 
 const useStyles = createStyles((theme) => ({
   root: {
-    width: '100%',
+    width: 'auto',
     height: '100%',
     padding: `${theme.spacing.md}px`,
     gap: `${theme.spacing.md}px`,
@@ -49,13 +49,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type GraphCardProps = {
+export interface GraphCardProps {
   cropIndex: number;
   tempPercentage: number;
   tableNumber: number;
   menuImage: string;
   chartData: Data[];
-};
+}
 
 export const GraphCard: FC<GraphCardProps> = (props) => {
   const { classes } = useStyles();

@@ -14,7 +14,7 @@ import { GraphCardProps, GraphCard } from '../components/GraphCard';
 
 const useStyles = createStyles((theme) => ({
   root: {
-    width: '100%',
+    width: 'auto',
     height: 'auto',
     padding: `${theme.spacing.xl}px`,
     gap: `${theme.spacing.md}px`,
@@ -57,8 +57,6 @@ export const GraphSection: FC = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
-
-
   const [tempPercentage, setTempPercentage] = useState<number[]>([]);
 
   useEffect(() => {
@@ -77,18 +75,108 @@ export const GraphSection: FC = () => {
   const end = new Date('2023-03-31T23:59:59.000z');
   const qTempData = query(
     collection(db, 'tempCrop1'),
-    orderBy('time', 'desc'),
     where('time', '>=', start),
     where('time', '<=', end),
+    orderBy('time', 'asc'),
   );
-  const tempData1: any[][] = [];
-  //   const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-  //     tempData1.splice(0);
-  //     querySnapshot.forEach((doc) => {
-  //       tempData1.push([doc.data().time, doc.data().temp]);
-  //     });
-  //     // console.log(tempData1);
-  //   });
+
+  const [tempData1, setTempData1] = useState<
+    Array<{
+      time: string;
+      temperature: number;
+    }>
+  >([]);
+  useEffect(() => {
+    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
+      setTempData1([]);
+      querySnapshot.forEach((doc) =>
+        setTempData1((tempData1) => [
+          ...tempData1,
+          {
+            time: new Date(
+              (doc.data().time.seconds + 32400) * 1000,
+            ).toLocaleTimeString('ja-JP'),
+            temperature: doc.data().temp,
+          },
+        ]),
+      );
+      console.log(tempData1);
+      console.log(dummyData);
+    });
+  }, []);
+  const [tempData2, setTempData2] = useState<
+    Array<{
+      time: string;
+      temperature: number;
+    }>
+  >([]);
+  useEffect(() => {
+    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
+      setTempData2([]);
+      querySnapshot.forEach((doc) =>
+        setTempData2((tempData2) => [
+          ...tempData2,
+          {
+            time: new Date(
+              (doc.data().time.seconds + 32400) * 1000,
+            ).toLocaleTimeString('ja-JP'),
+            temperature: doc.data().temp,
+          },
+        ]),
+      );
+      console.log(tempData2);
+      console.log(dummyData);
+    });
+  }, []);
+  const [tempData3, setTempData3] = useState<
+    Array<{
+      time: string;
+      temperature: number;
+    }>
+  >([]);
+  useEffect(() => {
+    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
+      setTempData3([]);
+      querySnapshot.forEach((doc) =>
+        setTempData3((tempData3) => [
+          ...tempData3,
+          {
+            time: new Date(
+              (doc.data().time.seconds + 32400) * 1000,
+            ).toLocaleTimeString('ja-JP'),
+            temperature: doc.data().temp,
+          },
+        ]),
+      );
+      console.log(tempData3);
+      console.log(dummyData);
+    });
+  }, []);
+  const [tempData4, setTempData4] = useState<
+    Array<{
+      time: string;
+      temperature: number;
+    }>
+  >([]);
+  useEffect(() => {
+    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
+      // tempData4.splice(0);
+      setTempData4([]);
+      querySnapshot.forEach((doc) =>
+        setTempData4((tempData4) => [
+          ...tempData4,
+          {
+            time: new Date(
+              (doc.data().time.seconds + 32400) * 1000,
+            ).toLocaleTimeString('ja-JP'),
+            temperature: doc.data().temp,
+          },
+        ]),
+      );
+      console.log(tempData4);
+      console.log(dummyData);
+    });
+  }, []);
 
   const crop1Data: GraphCardProps = {
     cropIndex: 1,
@@ -96,7 +184,7 @@ export const GraphSection: FC = () => {
     tableNumber: 4,
     menuImage:
       'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
-    chartData: dummyData,
+    chartData: tempData1,
   };
 
   const crop2Data: GraphCardProps = {
@@ -105,7 +193,7 @@ export const GraphSection: FC = () => {
     tableNumber: 1,
     menuImage:
       'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
-    chartData: dummyData,
+    chartData: tempData2,
   };
 
   const crop3Data: GraphCardProps = {
@@ -114,7 +202,7 @@ export const GraphSection: FC = () => {
     tableNumber: 2,
     menuImage:
       'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
-    chartData: dummyData,
+    chartData: tempData3,
   };
 
   const crop4Data: GraphCardProps = {
@@ -123,7 +211,7 @@ export const GraphSection: FC = () => {
     tableNumber: 4,
     menuImage:
       'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
-    chartData: dummyData,
+    chartData: tempData4,
   };
 
   return (
