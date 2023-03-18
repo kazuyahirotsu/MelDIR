@@ -54,16 +54,17 @@ const useStyles = createStyles((theme) => ({
 
 export interface PriorityCardProps {
   itemOn: boolean;
+  priority: number;
   cropIndex: number;
   temp: number;
-  tableNumber: number;
+  tableId: string;
   menuImage: string;
 }
 
 export const PriorityCard: FC<PriorityCardProps> = (props) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { itemOn, cropIndex, temp, tableNumber, menuImage } = props;
+  const { itemOn, cropIndex, temp, tableId, menuImage } = props;
 
   return (
     <div className={classes.root}>
@@ -77,7 +78,7 @@ export const PriorityCard: FC<PriorityCardProps> = (props) => {
               Table
             </Title>
             <Title order={1} color={theme.colors.blue[7]}>
-              {tableNumber}
+              {itemOn ? tableId : "-"}
             </Title>
           </div>
           <div className={classes.tableBox}>

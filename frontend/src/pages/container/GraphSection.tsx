@@ -6,7 +6,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useMemo } from 'react';
 
 import { db } from '../../lib/firebase';
 import { dummyData } from '../components/Chart';
@@ -79,6 +79,18 @@ export const GraphSection: FC = () => {
     where('time', '<=', end),
     orderBy('time', 'asc'),
   );
+
+  const [itemOnList, seItemOnList] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const qMainData = query(collection(db, 'mainData'));
+    onSnapshot(qMainData, (querySnapshot) => {
+      seItemOnList([]);
+      querySnapshot.forEach((doc) => {
+        seItemOnList((prev) => [...prev, doc.data().itemOn]);
+      });
+    });
+  }, []);
 
   const [tempData1, setTempData1] = useState<
     Array<{
@@ -160,7 +172,6 @@ export const GraphSection: FC = () => {
   >([]);
   useEffect(() => {
     const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      // tempData4.splice(0);
       setTempData4([]);
       querySnapshot.forEach((doc) =>
         setTempData4((tempData4) => [
@@ -178,41 +189,53 @@ export const GraphSection: FC = () => {
     });
   }, []);
 
-  const crop1Data: GraphCardProps = {
-    cropIndex: 1,
-    tempPercentage: tempPercentage[0],
-    tableNumber: 4,
-    menuImage:
-      'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
-    chartData: tempData1,
-  };
+  const crop1Data: GraphCardProps = useMemo(() => {
+    return {
+      itemOn: itemOnList[0],
+      cropIndex: 1,
+      tempPercentage: tempPercentage[0],
+      tableId: 'D',
+      menuImage:
+        'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
+      chartData: tempData1,
+    };
+  }, [itemOnList, tempData1, tempPercentage]);
 
-  const crop2Data: GraphCardProps = {
-    cropIndex: 2,
-    tempPercentage: tempPercentage[1],
-    tableNumber: 1,
-    menuImage:
-      'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
-    chartData: tempData2,
-  };
+  const crop2Data: GraphCardProps = useMemo(() => {
+    return {
+      itemOn: itemOnList[1],
+      cropIndex: 2,
+      tempPercentage: tempPercentage[1],
+      tableId: 'A',
+      menuImage:
+        'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
+      chartData: tempData2,
+    };
+  }, [itemOnList, tempData2, tempPercentage]);
 
-  const crop3Data: GraphCardProps = {
-    cropIndex: 3,
-    tempPercentage: tempPercentage[2],
-    tableNumber: 2,
-    menuImage:
-      'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
-    chartData: tempData3,
-  };
+  const crop3Data: GraphCardProps = useMemo(() => {
+    return {
+      itemOn: itemOnList[2],
+      cropIndex: 3,
+      tempPercentage: tempPercentage[2],
+      tableId: 'B',
+      menuImage:
+        'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
+      chartData: tempData3,
+    };
+  }, [itemOnList, tempData3, tempPercentage]);
 
-  const crop4Data: GraphCardProps = {
-    cropIndex: 4,
-    tempPercentage: tempPercentage[3],
-    tableNumber: 4,
-    menuImage:
-      'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
-    chartData: tempData4,
-  };
+  const crop4Data: GraphCardProps = useMemo(() => {
+    return {
+      itemOn: itemOnList[3],
+      cropIndex: 4,
+      tempPercentage: tempPercentage[3],
+      tableId: 'D',
+      menuImage:
+        'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
+      chartData: tempData4,
+    };
+  }, [itemOnList, tempData4, tempPercentage]);
 
   return (
     <div className={classes.root}>

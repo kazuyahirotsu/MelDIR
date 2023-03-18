@@ -50,9 +50,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export interface GraphCardProps {
+  itemOn: boolean;
   cropIndex: number;
   tempPercentage: number;
-  tableNumber: number;
+  tableId: string;
   menuImage: string;
   chartData: Data[];
 }
@@ -60,8 +61,14 @@ export interface GraphCardProps {
 export const GraphCard: FC<GraphCardProps> = (props) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { cropIndex, tempPercentage, tableNumber, menuImage, chartData } =
-    props;
+  const {
+    itemOn,
+    cropIndex,
+    tempPercentage,
+    tableId,
+    menuImage,
+    chartData,
+  } = props;
 
   return (
     <div className={classes.root}>
@@ -70,7 +77,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
           Crop{cropIndex}
         </Title>
         <Title order={1} color={theme.colors.blue[5]}>
-          {tempPercentage}%
+          {itemOn && tempPercentage ? tempPercentage.toFixed(2) : '-'}%
         </Title>
       </div>
       <div className={classes.container}>
@@ -80,7 +87,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
               Table
             </Title>
             <Title order={1} color={theme.colors.blue[5]}>
-              {tableNumber}
+              {itemOn ? tableId : "-"}
             </Title>
           </div>
           <div className={classes.tableBox}>
@@ -89,9 +96,10 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
             </Title>
             <img
               src={
-                menuImage
+                itemOn ? (menuImage
                   ? menuImage
-                  : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg'
+                  : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg')
+                  : "https://jitanda.com/j/j458_2/tnimg_j458_2.png"
               }
               height={120}
               width={180}
@@ -101,7 +109,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
           </div>
         </div>
         <div className={classes.box}>
-          <Chart data={chartData} />
+          <Chart data={itemOn ? chartData: []} />
         </div>
       </div>
     </div>
