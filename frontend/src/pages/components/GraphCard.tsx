@@ -12,6 +12,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     borderRadius: `${theme.spacing.sm}px`,
+    boxShadow: `2px 2px 2px ${theme.colors.gray[2]}`,
     color: theme.black,
     backgroundColor: theme.colors.gray[0],
   },
