@@ -33,7 +33,7 @@ export const Chart: FC<ChartProps> = ({ data }) => {
       <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" />
       <XAxis dataKey="time" />
-      <YAxis domain={[10, 60]} />
+      <YAxis domain={[0, 110]} />
     </LineChart>
   );
 };

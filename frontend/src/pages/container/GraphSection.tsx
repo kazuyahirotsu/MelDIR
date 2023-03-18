@@ -70,15 +70,18 @@ export const GraphSection: FC = () => {
   }, []);
   console.log({ tempPercentage });
 
-  // this listens the time-series temp data documentation of collection of tempCrop1
-  const start = new Date('2023-03-01T00:00:00.000z');
-  const end = new Date('2023-03-31T23:59:59.000z');
-  const qTempData = query(
-    collection(db, 'tempCrop1'),
-    where('time', '>=', start),
-    where('time', '<=', end),
-    orderBy('time', 'asc'),
-  );
+  const [startTime, setStartTime] = useState<Date[]>([]);
+
+  useEffect(() => {
+    const qMainData = query(collection(db, 'mainData'));
+    onSnapshot(qMainData, (querySnapshot) => {
+      setStartTime([]);
+      querySnapshot.forEach((doc) => {
+        setStartTime((prev) => [...prev, (new Date((doc.data().startTime.seconds) * 1000))]);
+      });
+    });
+  }, []);
+  console.log({ startTime });
 
   const [tempData1, setTempData1] = useState<
     Array<{
@@ -87,23 +90,30 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      setTempData1([]);
-      querySnapshot.forEach((doc) =>
-        setTempData1((tempData1) => [
-          ...tempData1,
-          {
-            time: new Date(
-              (doc.data().time.seconds + 32400) * 1000,
-            ).toLocaleTimeString('ja-JP'),
-            temperature: doc.data().temp,
-          },
-        ]),
+    if (startTime.length != 0){
+      const qTempData1 = query(
+        collection(db, 'tempCrop1'),
+        where('time', '>=', startTime[0]),
+        orderBy('time', 'asc'),
       );
-      console.log(tempData1);
-      console.log(dummyData);
-    });
-  }, []);
+
+      const unsubscribeTempData = onSnapshot(qTempData1, (querySnapshot) => {
+        setTempData1([]);
+        querySnapshot.forEach((doc) =>
+          setTempData1((tempData1) => [
+            ...tempData1,
+            {
+              time: new Date(
+                (doc.data().time.seconds + 32400) * 1000,
+              ).toLocaleTimeString('ja-JP'),
+              temperature: doc.data().temp,
+            },
+          ]),
+        );
+      });
+    }
+  }, [startTime]);
+
   const [tempData2, setTempData2] = useState<
     Array<{
       time: string;
@@ -111,23 +121,30 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      setTempData2([]);
-      querySnapshot.forEach((doc) =>
-        setTempData2((tempData2) => [
-          ...tempData2,
-          {
-            time: new Date(
-              (doc.data().time.seconds + 32400) * 1000,
-            ).toLocaleTimeString('ja-JP'),
-            temperature: doc.data().temp,
-          },
-        ]),
+    if (startTime.length != 0){
+      const qTempData2 = query(
+        collection(db, 'tempCrop2'),
+        where('time', '>=', startTime[1]),
+        orderBy('time', 'asc'),
       );
-      console.log(tempData2);
-      console.log(dummyData);
-    });
-  }, []);
+
+      const unsubscribeTempData = onSnapshot(qTempData2, (querySnapshot) => {
+        setTempData2([]);
+        querySnapshot.forEach((doc) =>
+          setTempData2((tempData2) => [
+            ...tempData2,
+            {
+              time: new Date(
+                (doc.data().time.seconds + 32400) * 1000,
+              ).toLocaleTimeString('ja-JP'),
+              temperature: doc.data().temp,
+            },
+          ]),
+        );
+      });
+    }
+  }, [startTime]);
+
   const [tempData3, setTempData3] = useState<
     Array<{
       time: string;
@@ -135,23 +152,30 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      setTempData3([]);
-      querySnapshot.forEach((doc) =>
-        setTempData3((tempData3) => [
-          ...tempData3,
-          {
-            time: new Date(
-              (doc.data().time.seconds + 32400) * 1000,
-            ).toLocaleTimeString('ja-JP'),
-            temperature: doc.data().temp,
-          },
-        ]),
+    if (startTime.length != 0){
+      const qTempData3 = query(
+        collection(db, 'tempCrop3'),
+        where('time', '>=', startTime[2]),
+        orderBy('time', 'asc'),
       );
-      console.log(tempData3);
-      console.log(dummyData);
-    });
-  }, []);
+
+      const unsubscribeTempData = onSnapshot(qTempData3, (querySnapshot) => {
+        setTempData3([]);
+        querySnapshot.forEach((doc) =>
+          setTempData3((tempData3) => [
+            ...tempData3,
+            {
+              time: new Date(
+                (doc.data().time.seconds + 32400) * 1000,
+              ).toLocaleTimeString('ja-JP'),
+              temperature: doc.data().temp,
+            },
+          ]),
+        );
+      });
+    }
+  }, [startTime]);
+
   const [tempData4, setTempData4] = useState<
     Array<{
       time: string;
@@ -159,24 +183,29 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      // tempData4.splice(0);
-      setTempData4([]);
-      querySnapshot.forEach((doc) =>
-        setTempData4((tempData4) => [
-          ...tempData4,
-          {
-            time: new Date(
-              (doc.data().time.seconds + 32400) * 1000,
-            ).toLocaleTimeString('ja-JP'),
-            temperature: doc.data().temp,
-          },
-        ]),
+    if (startTime.length != 0){
+      const qTempData4 = query(
+        collection(db, 'tempCrop4'),
+        where('time', '>=', startTime[3]),
+        orderBy('time', 'asc'),
       );
-      console.log(tempData4);
-      console.log(dummyData);
-    });
-  }, []);
+
+      const unsubscribeTempData = onSnapshot(qTempData4, (querySnapshot) => {
+        setTempData4([]);
+        querySnapshot.forEach((doc) =>
+          setTempData4((tempData4) => [
+            ...tempData4,
+            {
+              time: new Date(
+                (doc.data().time.seconds + 32400) * 1000,
+              ).toLocaleTimeString('ja-JP'),
+              temperature: doc.data().temp,
+            },
+          ]),
+        );
+      });
+    }
+  }, [startTime]);
 
   const crop1Data: GraphCardProps = {
     cropIndex: 1,
