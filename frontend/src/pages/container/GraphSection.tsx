@@ -59,6 +59,7 @@ export const GraphSection: FC = () => {
 
   const [tempPercentage, setTempPercentage] = useState<number[]>([]);
   const [itemOnList, seItemOnList] = useState<boolean[]>([]);
+  const [thermalImageUrl, setThermalImageUrl] = useState<string[]>([]);
 
   useEffect(() => {
     const qMainData = query(collection(db, 'mainData'));
@@ -80,6 +81,16 @@ export const GraphSection: FC = () => {
     });
   }, []);
   console.log({ tempPercentage });
+
+  useEffect(() => {
+    const qMainData = query(collection(db, 'mainData'));
+    onSnapshot(qMainData, (querySnapshot) => {
+      setThermalImageUrl([]);
+      querySnapshot.forEach((doc) => {
+        setThermalImageUrl((prev) => [...prev, doc.data().imgUrl]);
+      });
+    });
+  }, []);
 
   const [startTime, setStartTime] = useState<Date[]>([]);
 
@@ -229,8 +240,7 @@ export const GraphSection: FC = () => {
       cropIndex: 1,
       tempPercentage: tempPercentage[0],
       tableId: 'D',
-      menuImage:
-        'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
+      menuImage: thermalImageUrl[0],
       chartData: tempData1,
     };
   }, [itemOnList, tempData1, tempPercentage]);
@@ -241,8 +251,7 @@ export const GraphSection: FC = () => {
       cropIndex: 2,
       tempPercentage: tempPercentage[1],
       tableId: 'A',
-      menuImage:
-        'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
+      menuImage: thermalImageUrl[1],
       chartData: tempData2,
     };
   }, [itemOnList, tempData2, tempPercentage]);
@@ -253,8 +262,7 @@ export const GraphSection: FC = () => {
       cropIndex: 3,
       tempPercentage: tempPercentage[2],
       tableId: 'B',
-      menuImage:
-        'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
+      menuImage: thermalImageUrl[2],
       chartData: tempData3,
     };
   }, [itemOnList, tempData3, tempPercentage]);
@@ -265,8 +273,7 @@ export const GraphSection: FC = () => {
       cropIndex: 4,
       tempPercentage: tempPercentage[3],
       tableId: 'D',
-      menuImage:
-        'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
+      menuImage: thermalImageUrl[3],
       chartData: tempData4,
     };
   }, [itemOnList, tempData4, tempPercentage]);
