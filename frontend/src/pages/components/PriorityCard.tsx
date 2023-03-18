@@ -94,7 +94,7 @@ export const PriorityCard: FC<PriorityCardProps> = (props) => {
               Time
             </Title>
             <Title order={1} color={theme.colors.blue[7]}>
-              {waitingTime}
+              {waitingTime.toFixed(2)}
             </Title>
           </div>
         </div>
