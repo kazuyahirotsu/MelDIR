@@ -1,2 +1,2 @@
 # MelDIR
-repo for MelDIR hackathonn
+repo for MelDIR hackathon
