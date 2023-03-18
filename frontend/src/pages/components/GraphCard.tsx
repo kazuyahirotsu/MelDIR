@@ -1,8 +1,7 @@
 import { createStyles, useMantineTheme, Title } from '@mantine/core';
 import { FC } from 'react';
 
-import { Data, Chart } from "./Chart"
-
+import { Data, Chart } from './Chart';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -50,18 +49,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type GraphCardProps ={
-    cropIndex: number;
-    tempPercentage: number;
-    tableNumber: number;
-    menuImage: string;
-    chartData: Data[];
-}
+export type GraphCardProps = {
+  cropIndex: number;
+  tempPercentage: number;
+  tableNumber: number;
+  menuImage: string;
+  chartData: Data[];
+};
 
 export const GraphCard: FC<GraphCardProps> = (props) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const {cropIndex, tempPercentage, tableNumber, menuImage, chartData} = props;
+  const { cropIndex, tempPercentage, tableNumber, menuImage, chartData } =
+    props;
 
   return (
     <div className={classes.root}>
@@ -69,7 +69,9 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
         <Title order={1} color={theme.colors.gray[7]}>
           Crop{cropIndex}
         </Title>
-        <Title order={1} color={theme.colors.blue[5]}> -{tempPercentage}%</Title>
+        <Title order={1} color={theme.colors.blue[5]}>
+          {tempPercentage}%
+        </Title>
       </div>
       <div className={classes.container}>
         <div className={classes.box}>
@@ -86,7 +88,11 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
               Menu
             </Title>
             <img
-              src={menuImage? menuImage:"https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg"}
+              src={
+                menuImage
+                  ? menuImage
+                  : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg'
+              }
               height={120}
               alt="steak"
               className={classes.image}
@@ -94,7 +100,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
           </div>
         </div>
         <div className={classes.box}>
-          <Chart data={chartData}/>
+          <Chart data={chartData} />
         </div>
       </div>
     </div>
