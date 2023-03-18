@@ -1,0 +1,7 @@
+環境センサwiki
+https://www.waveshare.com/wiki/Environment_Sensor_HAT
+
+実行手順
+sudo pigpiod
+python main_hackathon.py
+
