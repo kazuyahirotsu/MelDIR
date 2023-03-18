@@ -1,7 +1,15 @@
-import React from 'react';
+import { MantineProvider } from '@mantine/core';
+import { FC } from 'react';
 
-function App() {
-  return <div className="App">aaa</div>;
-}
+import HomePage from './pages/HomePage';
+import { lightTheme } from './styles/theme';
+
+const App: FC = () => {
+  return (
+    <MantineProvider withGlobalStyles withNormalizeCSS theme={lightTheme}>
+      <HomePage />
+    </MantineProvider>
+  );
+};
 
 export default App;
