@@ -9,7 +9,6 @@ import {
 import { FC, useState, useEffect, useMemo } from 'react';
 
 import { db } from '../../lib/firebase';
-import { dummyData } from '../components/Chart';
 import { GraphCardProps, GraphCard } from '../components/GraphCard';
 
 const useStyles = createStyles((theme) => ({
@@ -80,7 +79,6 @@ export const GraphSection: FC = () => {
       });
     });
   }, []);
-  console.log({ tempPercentage });
 
   useEffect(() => {
     const qMainData = query(collection(db, 'mainData'));
@@ -121,8 +119,7 @@ export const GraphSection: FC = () => {
         where('time', '>=', startTime[0]),
         orderBy('time', 'asc'),
       );
-
-      const unsubscribeTempData = onSnapshot(qTempData1, (querySnapshot) => {
+      onSnapshot(qTempData1, (querySnapshot) => {
         setTempData1([]);
         querySnapshot.forEach((doc) =>
           setTempData1((tempData1) => [
@@ -152,8 +149,7 @@ export const GraphSection: FC = () => {
         where('time', '>=', startTime[1]),
         orderBy('time', 'asc'),
       );
-
-      const unsubscribeTempData = onSnapshot(qTempData2, (querySnapshot) => {
+      onSnapshot(qTempData2, (querySnapshot) => {
         setTempData2([]);
         querySnapshot.forEach((doc) =>
           setTempData2((tempData2) => [
@@ -183,8 +179,7 @@ export const GraphSection: FC = () => {
         where('time', '>=', startTime[2]),
         orderBy('time', 'asc'),
       );
-
-      const unsubscribeTempData = onSnapshot(qTempData3, (querySnapshot) => {
+      onSnapshot(qTempData3, (querySnapshot) => {
         setTempData3([]);
         querySnapshot.forEach((doc) =>
           setTempData3((tempData3) => [
@@ -214,7 +209,7 @@ export const GraphSection: FC = () => {
         where('time', '>=', startTime[3]),
         orderBy('time', 'asc'),
       );
-      const unsubscribeTempData = onSnapshot(qTempData4, (querySnapshot) => {
+      onSnapshot(qTempData4, (querySnapshot) => {
         // tempData4.splice(0);
         setTempData4([]);
         querySnapshot.forEach((doc) =>
@@ -228,11 +223,9 @@ export const GraphSection: FC = () => {
             },
           ]),
         );
-        console.log(tempData4);
-        console.log(dummyData);
       });
     }
-  }, []);
+  }, [startTime]);
 
   const crop1Data: GraphCardProps = useMemo(() => {
     return {
@@ -243,7 +236,7 @@ export const GraphSection: FC = () => {
       menuImage: thermalImageUrl[0],
       chartData: tempData1,
     };
-  }, [itemOnList, tempData1, tempPercentage]);
+  }, [itemOnList, tempData1, tempPercentage, thermalImageUrl]);
 
   const crop2Data: GraphCardProps = useMemo(() => {
     return {
@@ -254,7 +247,7 @@ export const GraphSection: FC = () => {
       menuImage: thermalImageUrl[1],
       chartData: tempData2,
     };
-  }, [itemOnList, tempData2, tempPercentage]);
+  }, [itemOnList, tempData2, tempPercentage, thermalImageUrl]);
 
   const crop3Data: GraphCardProps = useMemo(() => {
     return {
@@ -265,7 +258,7 @@ export const GraphSection: FC = () => {
       menuImage: thermalImageUrl[2],
       chartData: tempData3,
     };
-  }, [itemOnList, tempData3, tempPercentage]);
+  }, [itemOnList, tempData3, tempPercentage, thermalImageUrl]);
 
   const crop4Data: GraphCardProps = useMemo(() => {
     return {
@@ -276,7 +269,7 @@ export const GraphSection: FC = () => {
       menuImage: thermalImageUrl[3],
       chartData: tempData4,
     };
-  }, [itemOnList, tempData4, tempPercentage]);
+  }, [itemOnList, tempData4, tempPercentage, thermalImageUrl]);
 
   return (
     <div className={classes.root}>

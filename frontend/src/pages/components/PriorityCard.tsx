@@ -50,7 +50,7 @@ const useStyles = createStyles((theme) => ({
   imageBox: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 0,
+    gap: `${theme.spacing.xs}px`,
   },
   image: {
     borderRadius: `${theme.spacing.xs}px`,
@@ -88,7 +88,9 @@ export const PriorityCard: FC<PriorityCardProps> = (props) => {
           </div>
           <div className={classes.tableBox}>
             <Title order={4} color={theme.colors.gray[7]}>
-              Waiting<br/>Time
+              Waiting
+              <br />
+              Time
             </Title>
             <Title order={1} color={theme.colors.blue[7]}>
               {waitingTime}

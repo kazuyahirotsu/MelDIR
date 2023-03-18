@@ -44,6 +44,12 @@ const useStyles = createStyles((theme) => ({
     textAlign: 'center',
     gap: 0,
   },
+  imageBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    gap: `${theme.spacing.sm}px`,
+  },
   image: {
     borderRadius: `${theme.spacing.xs}px`,
   },
@@ -84,9 +90,9 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
               {itemOn ? tableId : '-'}
             </Title>
           </div>
-          <div className={classes.tableBox}>
+          <div className={classes.imageBox}>
             <Title order={3} color={theme.colors.gray[7]}>
-              Menu
+              MelDIR Image
             </Title>
             <img
               src={
