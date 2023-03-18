@@ -61,14 +61,8 @@ export interface GraphCardProps {
 export const GraphCard: FC<GraphCardProps> = (props) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const {
-    itemOn,
-    cropIndex,
-    tempPercentage,
-    tableId,
-    menuImage,
-    chartData,
-  } = props;
+  const { itemOn, cropIndex, tempPercentage, tableId, menuImage, chartData } =
+    props;
 
   return (
     <div className={classes.root}>
@@ -87,7 +81,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
               Table
             </Title>
             <Title order={1} color={theme.colors.blue[5]}>
-              {itemOn ? tableId : "-"}
+              {itemOn ? tableId : '-'}
             </Title>
           </div>
           <div className={classes.tableBox}>
@@ -96,10 +90,11 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
             </Title>
             <img
               src={
-                itemOn ? (menuImage
+                itemOn
                   ? menuImage
-                  : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg')
-                  : "https://jitanda.com/j/j458_2/tnimg_j458_2.png"
+                    ? menuImage
+                    : 'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg'
+                  : 'https://jitanda.com/j/j458_2/tnimg_j458_2.png'
               }
               height={120}
               width={180}
@@ -109,7 +104,7 @@ export const GraphCard: FC<GraphCardProps> = (props) => {
           </div>
         </div>
         <div className={classes.box}>
-          <Chart data={itemOn ? chartData: []} />
+          <Chart data={itemOn ? chartData : []} />
         </div>
       </div>
     </div>

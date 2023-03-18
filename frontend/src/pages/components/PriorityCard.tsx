@@ -78,7 +78,7 @@ export const PriorityCard: FC<PriorityCardProps> = (props) => {
               Table
             </Title>
             <Title order={1} color={theme.colors.blue[7]}>
-              {itemOn ? tableId : "-"}
+              {itemOn ? tableId : '-'}
             </Title>
           </div>
           <div className={classes.tableBox}>

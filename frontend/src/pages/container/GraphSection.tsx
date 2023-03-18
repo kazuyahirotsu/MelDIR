@@ -58,6 +58,17 @@ export const GraphSection: FC = () => {
   const theme = useMantineTheme();
 
   const [tempPercentage, setTempPercentage] = useState<number[]>([]);
+  const [itemOnList, seItemOnList] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const qMainData = query(collection(db, 'mainData'));
+    onSnapshot(qMainData, (querySnapshot) => {
+      seItemOnList([]);
+      querySnapshot.forEach((doc) => {
+        seItemOnList((prev) => [...prev, doc.data().itemOn]);
+      });
+    });
+  }, []);
 
   useEffect(() => {
     const qMainData = query(collection(db, 'mainData'));
@@ -77,7 +88,10 @@ export const GraphSection: FC = () => {
     onSnapshot(qMainData, (querySnapshot) => {
       setStartTime([]);
       querySnapshot.forEach((doc) => {
-        setStartTime((prev) => [...prev, (new Date((doc.data().startTime.seconds) * 1000))]);
+        setStartTime((prev) => [
+          ...prev,
+          new Date(doc.data().startTime.seconds * 1000),
+        ]);
       });
     });
   }, []);
@@ -90,7 +104,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    if (startTime.length != 0){
+    if (startTime.length != 0) {
       const qTempData1 = query(
         collection(db, 'tempCrop1'),
         where('time', '>=', startTime[0]),
@@ -121,7 +135,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    if (startTime.length != 0){
+    if (startTime.length != 0) {
       const qTempData2 = query(
         collection(db, 'tempCrop2'),
         where('time', '>=', startTime[1]),
@@ -152,7 +166,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    if (startTime.length != 0){
+    if (startTime.length != 0) {
       const qTempData3 = query(
         collection(db, 'tempCrop3'),
         where('time', '>=', startTime[2]),
@@ -183,23 +197,30 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
-    const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
-      // tempData4.splice(0);
-      setTempData4([]);
-      querySnapshot.forEach((doc) =>
-        setTempData4((tempData4) => [
-          ...tempData4,
-          {
-            time: new Date(
-              (doc.data().time.seconds + 32400) * 1000,
-            ).toLocaleTimeString('ja-JP'),
-            temperature: doc.data().temp,
-          },
-        ]),
+    if (startTime.length != 0) {
+      const qTempData4 = query(
+        collection(db, 'tempCrop3'),
+        where('time', '>=', startTime[3]),
+        orderBy('time', 'asc'),
       );
-      console.log(tempData4);
-      console.log(dummyData);
-    });
+      const unsubscribeTempData = onSnapshot(qTempData4, (querySnapshot) => {
+        // tempData4.splice(0);
+        setTempData4([]);
+        querySnapshot.forEach((doc) =>
+          setTempData4((tempData4) => [
+            ...tempData4,
+            {
+              time: new Date(
+                (doc.data().time.seconds + 32400) * 1000,
+              ).toLocaleTimeString('ja-JP'),
+              temperature: doc.data().temp,
+            },
+          ]),
+        );
+        console.log(tempData4);
+        console.log(dummyData);
+      });
+    }
   }, []);
 
   const crop1Data: GraphCardProps = useMemo(() => {
