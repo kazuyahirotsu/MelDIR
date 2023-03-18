@@ -28,7 +28,7 @@ export const FirebaseTestSection: FC = () => {
   // const unsub = onSnapshot(doc(db, "mainData", "crop1"), (doc) => {
   //   console.log("Current data: ", doc.data());
   // });
-  
+
   // this listens all the document in collection of mainData
   // this will updated in real-time!
   const qMainData = query(collection(db, "mainData"));
