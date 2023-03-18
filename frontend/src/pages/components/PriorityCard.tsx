@@ -14,22 +14,22 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.gray[0],
   },
   container: {
-    width: 'auto',
+    width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'row',
     gap: `${theme.spacing.md}px`,
   },
   right: {
-    width: 'auto',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'start',
-    alignItems: 'start',
+    alignItems: 'center',
     gap: `${theme.spacing.xs}px`,
   },
   left: {
-    width: 'suto',
+    width: 'auto',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -40,6 +40,11 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
+    gap: 0,
+  },
+  timeBox: {
+    display: 'flex',
+    flexDirection: 'column',
     gap: 0,
   },
   imageBox: {
@@ -56,7 +61,7 @@ export interface PriorityCardProps {
   itemOn: boolean;
   priority: number;
   cropIndex: number;
-  temp: number;
+  waitingTime: number;
   tableId: string;
   menuImage: string;
 }
@@ -64,7 +69,7 @@ export interface PriorityCardProps {
 export const PriorityCard: FC<PriorityCardProps> = (props) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { itemOn, cropIndex, temp, tableId, menuImage } = props;
+  const { itemOn, cropIndex, waitingTime, tableId, menuImage } = props;
 
   return (
     <div className={classes.root}>
@@ -83,10 +88,10 @@ export const PriorityCard: FC<PriorityCardProps> = (props) => {
           </div>
           <div className={classes.tableBox}>
             <Title order={4} color={theme.colors.gray[7]}>
-              Temp
+              Waiting<br/>Time
             </Title>
             <Title order={1} color={theme.colors.blue[7]}>
-              {temp}
+              {waitingTime}
             </Title>
           </div>
         </div>
