@@ -83,7 +83,7 @@ export const GraphSection: FC = () => {
   useEffect(() => {
     const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
       setTempData1([])
-      querySnapshot.forEach((doc) => setTempData1(tempData1 => [...tempData1,{ time: new Date(doc.data().time.seconds * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
+      querySnapshot.forEach((doc) => setTempData1(tempData1 => [...tempData1,{ time: new Date((doc.data().time.seconds+32400) * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
       console.log(tempData1);
       console.log(dummyData);
     });
@@ -97,7 +97,7 @@ export const GraphSection: FC = () => {
   useEffect(() => {
     const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
       setTempData2([])
-      querySnapshot.forEach((doc) => setTempData2(tempData2 => [...tempData2,{ time: new Date(doc.data().time.seconds * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
+      querySnapshot.forEach((doc) => setTempData2(tempData2 => [...tempData2,{ time: new Date((doc.data().time.seconds+32400) * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
       console.log(tempData2);
       console.log(dummyData);
     });
@@ -111,7 +111,7 @@ export const GraphSection: FC = () => {
   useEffect(() => {
     const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
       setTempData3([])
-      querySnapshot.forEach((doc) => setTempData3(tempData3 => [...tempData3,{ time: new Date(doc.data().time.seconds * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
+      querySnapshot.forEach((doc) => setTempData3(tempData3 => [...tempData3,{ time: new Date((doc.data().time.seconds+32400) * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
       console.log(tempData3);
       console.log(dummyData);
     });
@@ -126,7 +126,7 @@ export const GraphSection: FC = () => {
     const unsubscribeTempData = onSnapshot(qTempData, (querySnapshot) => {
       // tempData4.splice(0);
       setTempData4([])
-      querySnapshot.forEach((doc) => setTempData4(tempData4 => [...tempData4,{ time: new Date(doc.data().time.seconds * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
+      querySnapshot.forEach((doc) => setTempData4(tempData4 => [...tempData4,{ time: new Date((doc.data().time.seconds+32400) * 1000).toLocaleTimeString('ja-JP'), temperature: doc.data().temp }] ));
       console.log(tempData4);
       console.log(dummyData);
     });
