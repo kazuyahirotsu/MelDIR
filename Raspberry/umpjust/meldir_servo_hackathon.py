@@ -134,7 +134,7 @@ class meldir:
         #First 8byte data(mode=1:4fps,mode=0:8fps)
         REG_RD=1
         WUP=1
-        MODE=0           
+        MODE=1          
         NUM_SHT=0
         ACT_SHT=0
         SDATA1=WUP*2**6+MODE*2**4+NUM_SHT*2**1+ACT_SHT*2**0
@@ -282,6 +282,8 @@ class meldir:
             mat = cv2.flip(pixdata_arr, 0)
             max = np.max(mat)
             min = np.min(mat)
+            max = 600
+            min = -500
             mat = (mat-min)/(max-min)*255
             mat = mat.astype(np.uint8)
             self.imshowmat = mat
