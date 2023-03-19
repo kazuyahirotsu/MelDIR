@@ -88,6 +88,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
+    setTempData1([]);
     if (startTime.length != 0) {
       const qTempData1 = query(
         collection(db, 'tempCrop1'),
@@ -96,25 +97,27 @@ export const GraphSection: FC = () => {
         limitToLast(5),
       );
       const unsubscribe = onSnapshot(qTempData1, (querySnapshot) => {
-        setTempData1([]);
-        querySnapshot.docChanges().forEach((change) =>
-          setTempData1((tempData1) => [
-            ...tempData1,
-            {
-              time: new Date(
-                (change.doc.data().time.seconds + 32400) * 1000,
-              ).toLocaleTimeString('ja-JP'),
-              temperature: change.doc.data().temp,
-            },
-          ]),
-        );
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            setTempData1((tempData1) => [
+              ...tempData1,
+              {
+                time: new Date(
+                  (change.doc.data().time.seconds + 32400) * 1000,
+                ).toLocaleTimeString('ja-JP'),
+                temperature: change.doc.data().temp,
+              },
+            ]);
+          }
+        });
       });
       return () => {
         unsubscribe();
       };
     }
     return;
-  }, [startTime]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime[0]]);
 
   const [tempData2, setTempData2] = useState<
     Array<{
@@ -123,6 +126,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
+    setTempData2([]);
     console.log('run!');
     if (startTime.length != 0) {
       const qTempData2 = query(
@@ -132,25 +136,27 @@ export const GraphSection: FC = () => {
         limitToLast(5),
       );
       const unsubscribe = onSnapshot(qTempData2, (querySnapshot) => {
-        setTempData2([]);
-        querySnapshot.docChanges().forEach((change) =>
-          setTempData2((tempData2) => [
-            ...tempData2,
-            {
-              time: new Date(
-                (change.doc.data().time.seconds + 32400) * 1000,
-              ).toLocaleTimeString('ja-JP'),
-              temperature: change.doc.data().temp,
-            },
-          ]),
-        );
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            setTempData2((tempData2) => [
+              ...tempData2,
+              {
+                time: new Date(
+                  (change.doc.data().time.seconds + 32400) * 1000,
+                ).toLocaleTimeString('ja-JP'),
+                temperature: change.doc.data().temp,
+              },
+            ]);
+          }
+        });
       });
       return () => {
         unsubscribe();
       };
     }
     return;
-  }, [startTime]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime[1]]);
 
   const [tempData3, setTempData3] = useState<
     Array<{
@@ -159,6 +165,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
+    setTempData3([]);
     if (startTime.length != 0) {
       const qTempData3 = query(
         collection(db, 'tempCrop3'),
@@ -167,25 +174,27 @@ export const GraphSection: FC = () => {
         limitToLast(5),
       );
       const unsubscribe = onSnapshot(qTempData3, (querySnapshot) => {
-        setTempData3([]);
-        querySnapshot.docChanges().forEach((change) =>
-          setTempData3((tempData3) => [
-            ...tempData3,
-            {
-              time: new Date(
-                (change.doc.data().time.seconds + 32400) * 1000,
-              ).toLocaleTimeString('ja-JP'),
-              temperature: change.doc.data().temp,
-            },
-          ]),
-        );
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            setTempData3((tempData3) => [
+              ...tempData3,
+              {
+                time: new Date(
+                  (change.doc.data().time.seconds + 32400) * 1000,
+                ).toLocaleTimeString('ja-JP'),
+                temperature: change.doc.data().temp,
+              },
+            ]);
+          }
+        });
       });
       return () => {
         unsubscribe();
       };
     }
     return;
-  }, [startTime]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime[2]]);
 
   const [tempData4, setTempData4] = useState<
     Array<{
@@ -194,6 +203,7 @@ export const GraphSection: FC = () => {
     }>
   >([]);
   useEffect(() => {
+    setTempData4([]);
     if (startTime.length != 0) {
       const qTempData4 = query(
         collection(db, 'tempCrop3'),
@@ -202,25 +212,27 @@ export const GraphSection: FC = () => {
         limitToLast(5),
       );
       const unsubscribe = onSnapshot(qTempData4, (querySnapshot) => {
-        setTempData4([]);
-        querySnapshot.docChanges().forEach((change) =>
-          setTempData4((tempData4) => [
-            ...tempData4,
-            {
-              time: new Date(
-                (change.doc.data().time.seconds + 32400) * 1000,
-              ).toLocaleTimeString('ja-JP'),
-              temperature: change.doc.data().temp,
-            },
-          ]),
-        );
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === 'added') {
+            setTempData4((tempData4) => [
+              ...tempData4,
+              {
+                time: new Date(
+                  (change.doc.data().time.seconds + 32400) * 1000,
+                ).toLocaleTimeString('ja-JP'),
+                temperature: change.doc.data().temp,
+              },
+            ]);
+          }
+        });
       });
       return () => {
         unsubscribe();
       };
     }
     return;
-  }, [startTime]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime[3]]);
 
   const crop1Data: GraphCardProps = useMemo(() => {
     return {
