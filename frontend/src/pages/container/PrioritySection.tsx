@@ -58,7 +58,7 @@ export const PrioritySection: FC = () => {
       waitingTime: waitingTimeList[0],
       tableId: 'D',
       menuImage:
-        'https://d1u3tvp6g3hoxn.cloudfront.net/media/wysiwyg/cookingstudio/recipe/34/34_steak_00.jpg',
+        'https://dw4dgbtzbcxdk.cloudfront.net/img/goods/2/S00031_2.jpg',
     };
   }, [itemOnList, priorityList, waitingTimeList]);
 
@@ -70,7 +70,7 @@ export const PrioritySection: FC = () => {
       waitingTime: waitingTimeList[1],
       tableId: 'A',
       menuImage:
-        'https://img.freepik.com/free-photo/tasty-appetizing-classic-italian-spaghetti-pasta-with-tomato-sauce-cheese-parmesan-and-basil-on-plate-and-ingredients-for-cooking-pasta-on-white-marble-table_1150-45638.jpg',
+        'https://item-shopping.c.yimg.jp/i/l/mashimo_10160158',
     };
   }, [itemOnList, priorityList, waitingTimeList]);
 
@@ -82,7 +82,7 @@ export const PrioritySection: FC = () => {
       waitingTime: waitingTimeList[2],
       tableId: 'B',
       menuImage:
-        'https://t4.ftcdn.net/jpg/01/64/95/35/360_F_164953558_Km5oiWKID0PbHDwkeHR137TBcI7f9tRJ.jpg',
+        'https://c.superdelivery.com/ip/n/sa/1200/630/www.superdelivery.com/product_image/820/8/8208357_s_1000.jpg',
     };
   }, [itemOnList, priorityList, waitingTimeList]);
 
@@ -94,7 +94,7 @@ export const PrioritySection: FC = () => {
       waitingTime: waitingTimeList[3],
       tableId: 'D',
       menuImage:
-        'https://image.excite.co.jp/jp/erecipe/recipe/9/1/91e4ba3667cde1e9111b51d2d6665fc1/147e90fc3c338c69b76b80d7f59b0853.jpeg',
+        'https://www.lawson.co.jp/recommend/original/detail/img/l720252.png',
     };
   }, [itemOnList, priorityList, waitingTimeList]);
 

@@ -55,6 +55,7 @@ const useStyles = createStyles((theme) => ({
   },
   image: {
     borderRadius: `${theme.spacing.xs}px`,
+    objectFit: "contain",
   },
 }));
 
