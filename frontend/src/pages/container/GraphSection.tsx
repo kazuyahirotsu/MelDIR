@@ -89,16 +89,20 @@ export const GraphSection: FC = () => {
   >([]);
   useEffect(() => {
     setTempData1([]);
-    if (startTime.length != 0) {
+    console.log('run! useEffect');
+    if (startTime[0]) {
       const qTempData1 = query(
         collection(db, 'tempCrop1'),
         where('time', '>=', startTime[0]),
         orderBy('time', 'asc'),
-        limitToLast(5),
+        limitToLast(1),
       );
-      const unsubscribe = onSnapshot(qTempData1, (querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
+      console.log('startTime0');
+      console.log(startTime[0]);
+      const unsubscribe1 = onSnapshot(qTempData1, (querySnapshot) => {
+        querySnapshot.docChanges().forEach(
+          (change) => {
+            //   if (change.type === "added") {
             setTempData1((tempData1) => [
               ...tempData1,
               {
@@ -108,15 +112,18 @@ export const GraphSection: FC = () => {
                 temperature: change.doc.data().temp,
               },
             ]);
-          }
-        });
+            console.log('tempData1');
+            console.log(tempData1);
+          },
+          // }
+        );
       });
       return () => {
-        unsubscribe();
+        unsubscribe1();
       };
     }
-    return;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime[0]]);
 
   const [tempData2, setTempData2] = useState<
@@ -127,17 +134,17 @@ export const GraphSection: FC = () => {
   >([]);
   useEffect(() => {
     setTempData2([]);
-    console.log('run!');
-    if (startTime.length != 0) {
+    if (startTime[1]) {
       const qTempData2 = query(
         collection(db, 'tempCrop2'),
         where('time', '>=', startTime[1]),
         orderBy('time', 'asc'),
-        limitToLast(5),
+        limitToLast(1),
       );
-      const unsubscribe = onSnapshot(qTempData2, (querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
+      const unsubscribe2 = onSnapshot(qTempData2, (querySnapshot) => {
+        querySnapshot.docChanges().forEach(
+          (change) => {
+            //   if (change.type === 'added') {
             setTempData2((tempData2) => [
               ...tempData2,
               {
@@ -147,15 +154,15 @@ export const GraphSection: FC = () => {
                 temperature: change.doc.data().temp,
               },
             ]);
-          }
-        });
+          },
+          // }
+        );
       });
       return () => {
-        unsubscribe();
+        unsubscribe2();
       };
     }
-    return;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime[1]]);
 
   const [tempData3, setTempData3] = useState<
@@ -166,16 +173,17 @@ export const GraphSection: FC = () => {
   >([]);
   useEffect(() => {
     setTempData3([]);
-    if (startTime.length != 0) {
+    if (startTime[2]) {
       const qTempData3 = query(
         collection(db, 'tempCrop3'),
         where('time', '>=', startTime[2]),
         orderBy('time', 'asc'),
-        limitToLast(5),
+        limitToLast(1),
       );
-      const unsubscribe = onSnapshot(qTempData3, (querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
+      const unsubscribe3 = onSnapshot(qTempData3, (querySnapshot) => {
+        querySnapshot.docChanges().forEach(
+          (change) => {
+            //   if (change.type === 'added') {
             setTempData3((tempData3) => [
               ...tempData3,
               {
@@ -185,15 +193,15 @@ export const GraphSection: FC = () => {
                 temperature: change.doc.data().temp,
               },
             ]);
-          }
-        });
+          },
+          // }
+        );
       });
       return () => {
-        unsubscribe();
+        unsubscribe3();
       };
     }
-    return;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime[2]]);
 
   const [tempData4, setTempData4] = useState<
@@ -204,16 +212,18 @@ export const GraphSection: FC = () => {
   >([]);
   useEffect(() => {
     setTempData4([]);
-    if (startTime.length != 0) {
+    if (startTime[3]) {
       const qTempData4 = query(
         collection(db, 'tempCrop3'),
         where('time', '>=', startTime[3]),
         orderBy('time', 'asc'),
-        limitToLast(5),
+        limitToLast(1),
       );
-      const unsubscribe = onSnapshot(qTempData4, (querySnapshot) => {
-        querySnapshot.docChanges().forEach((change) => {
-          if (change.type === 'added') {
+
+      const unsubscribe4 = onSnapshot(qTempData4, (querySnapshot) => {
+        querySnapshot.docChanges().forEach(
+          (change) => {
+            //   if (change.type === 'added') {
             setTempData4((tempData4) => [
               ...tempData4,
               {
@@ -223,15 +233,15 @@ export const GraphSection: FC = () => {
                 temperature: change.doc.data().temp,
               },
             ]);
-          }
-        });
+          },
+          // }
+        );
       });
       return () => {
-        unsubscribe();
+        unsubscribe4();
       };
     }
-    return;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime[3]]);
 
   const crop1Data: GraphCardProps = useMemo(() => {
